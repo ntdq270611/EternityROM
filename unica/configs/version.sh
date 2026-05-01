@@ -15,6 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-ROM_VERSION="v5.5"
+ROM_VERSION="v5.6"
 
 ROM_COMMIT="@$(git rev-parse --short HEAD)"
