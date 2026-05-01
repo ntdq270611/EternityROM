@@ -85,11 +85,10 @@ jobs:
           source ./buildenv.sh ${{ matrix.target }}
           ./scripts/make_rom.sh --force
 
-      - name: Upload to GoFile
+      - name: Upload to Transfer.sh
         run: |
           ZIP_FILE=$(find out -maxdepth 1 -type f -name "*.zip" | head -n 1)
-
-          RESPONSE=$(curl -s -F "file=@$ZIP_FILE" -F "token=${{ secrets.GOFILE_TOKEN }}" -F "folderId=${{ secrets.GOFILE_FOLDER_ID }}" "https://upload-eu-par.gofile.io/uploadFile")
-
+          # Upload and get the link
+          LINK=$(curl --upload-file "$ZIP_FILE" https://transfer.sh/$(basename "$ZIP_FILE"))
           echo "Uploaded successfully! Download link:"
-          echo "$RESPONSE" | jq -r '.data.downloadPage'
+          echo "$LINK"
